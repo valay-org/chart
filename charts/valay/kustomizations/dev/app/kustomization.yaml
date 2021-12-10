@@ -102,15 +102,15 @@ secretGenerator:
     envs:
       - env/mongo-sessions.env
   
-  - name: server-nestjs
+  - name: server-http
     namespace: ethernity-authentication
     envs:
-      - env/server-nestjs.env
+      - env/server-http.env
   
-  - name: server-metrics
+  - name: server-grpc
     namespace: ethernity-authentication
     envs:
-      - env/server-metrics.env
+      - env/server-grpc.env
   
   - name: jwt
     namespace: ethernity-authentication
@@ -138,15 +138,15 @@ secretGenerator:
     envs:
       - env/mongo-main.env
   
-  - name: server-nestjs
+  - name: server-http
     namespace: ethernity-user
     envs:
-      - env/server-nestjs.env
+      - env/server-http.env
   
-  - name: server-metrics
+  - name: server-grpc
     namespace: ethernity-user
     envs:
-      - env/server-metrics.env
+      - env/server-grpc.env
   
   - name: cloudinary
     namespace: ethernity-user
@@ -179,10 +179,15 @@ secretGenerator:
     envs:
       - env/google.env
   
-  - name: server-nestjs
+  - name: server-http
     namespace: ethernity-web
     envs:
-      - env/server-nestjs.env
+      - env/server-http.env
+
+  - name: server-grpc
+    namespace: ethernity-web
+    envs:
+      - env/server-grpc.env
   
   - name: jwt
     namespace: ethernity-web

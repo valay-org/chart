@@ -1,15 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "valay-web.fullname" . }}
+  name: {{ include "valay-web.name" . }}
+  namespace: {{ include "valay-web.namespaceName" . }}
   labels:
     {{- include "valay-web.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
       name: http
+      protocol: TCP
+      appProtocol: http
   selector:
     {{- include "valay-web.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: server

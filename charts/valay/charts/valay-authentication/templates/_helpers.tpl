@@ -40,6 +40,7 @@ helm.sh/chart: {{ include "valay-authentication.chart" . }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/part-of: {{ .Chart.Name }}
 {{- end }}
 
 {{/*
@@ -59,4 +60,11 @@ Create the name of the service account to use
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
+{{- end }}
+
+{{/*
+namespace to use
+*/}}
+{{- define "valay-authentication.namespaceName" -}}
+{{ .Release.Namespace }}-{{ include "valay.name" . }}
 {{- end }}

@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "valay-user.fullname" . }}
+  name: {{ include "valay-user.name" . }}
+  namespace: {{ include "valay-user.namespaceName" . }}
   labels:
     {{- include "valay-user.labels" . | nindent 4 }}
 spec:
@@ -11,6 +12,7 @@ spec:
   selector:
     matchLabels:
       {{- include "valay-user.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: server
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -19,34 +21,12 @@ spec:
       {{- end }}
       labels:
         {{- include "valay-user.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: server
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      shareProcessNamespace: true
       serviceAccountName: {{ include "valay-user.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -59,3 +39,50 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: storage-service-account
+          secret:
+            secretName: storage-service-account
+      containers:
+        - name: {{ include "valay-user.name" . }}
+          image: {{ .Values.image.repository }}{{ if .Values.image.tag }}:{{ end }}{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          workingDir: /container-app/server
+          command: [ "node","dist/main" ]
+          volumeMounts:
+            - name: storage-service-account
+              mountPath: "/container-app/secrets"
+              readOnly: true
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: {{ .Values.service.port }}
+            - name: grpc
+              protocol: TCP
+              containerPort: {{ .Values.serviceGrpc.port }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          livenessProbe:
+            exec:
+              command: [ "sh", "-c", "reply=$(curl -s -o /dev/null -w %{http_code} 127.0.0.1:{{ .Values.service.port }}/api/health/liveness); if [ \"$reply\" -lt 200 -o \"$reply\" -ge 400 ]; then exit 1; fi; grpc_health_probe -addr=:{{ .Values.serviceGrpc.port }}" ]
+          readinessProbe:
+            exec:
+              command: [ "sh", "-c", "reply=$(curl -s -o /dev/null -w %{http_code} 127.0.0.1:{{ .Values.service.port }}/api/health/readiness); if [ \"$reply\" -lt 200 -o \"$reply\" -ge 400 ]; then exit 1; fi; grpc_health_probe -addr=:{{ .Values.serviceGrpc.port }}" ]
+          startupProbe:
+            exec:
+              command: [ "sh", "-c", "reply=$(curl -s -o /dev/null -w %{http_code} 127.0.0.1:{{ .Values.service.port }}/api/health/startup); if [ \"$reply\" -lt 200 -o \"$reply\" -ge 400 ]; then exit 1; fi; grpc_health_probe -addr=:{{ .Values.serviceGrpc.port }}" ]
+          envFrom:
+            - secretRef:
+                name: config
+            - secretRef:
+                name: server-http
+            - secretRef:
+                name: server-grpc
+            - secretRef:
+                name: mongo-main
+            - secretRef:
+                name: cloudinary
+            - secretRef:
+                name: google
