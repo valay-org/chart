@@ -1,0 +1,190 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - all.yaml
+generatorOptions:
+  annotations:
+    helm.sh/hook: pre-install,pre-upgrade
+    helm.sh/hook-weight: "-3"
+
+patches:
+  - path: delete-job.yaml
+    target:
+      kind: Job
+      name: delete
+      namespace: ethernity-setup
+  
+  - path: migrations-job.yaml
+    target:
+      kind: Job
+      name: migrations
+      namespace: ethernity-setup
+  
+  - path: authentication-deployment.yaml
+    target:
+      kind: Deployment
+      name: authentication
+      namespace: ethernity-authentication
+  
+  - path: user-deployment.yaml
+    target:
+      kind: Deployment
+      name: user
+      namespace: ethernity-user
+  
+  - path: web-deployment.yaml
+    target:
+      kind: Deployment
+      name: web
+      namespace: ethernity-web
+  
+
+secretGenerator:
+  - name: docker-registry-auth
+    namespace: ethernity-setup
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+  
+  - name: storage-service-account
+    namespace: ethernity-setup
+    files:
+      - files/storage-service-account-key.json
+  
+  - name: config
+    namespace: ethernity-setup
+    envs:
+      - env/config.env
+  
+  - name: mongo-main
+    namespace: ethernity-setup
+    envs:
+      - env/mongo-main.env
+  
+  - name: mongo-migrations
+    namespace: ethernity-setup
+    envs:
+      - env/mongo-migrations.env
+  
+  - name: mongo-sessions
+    namespace: ethernity-setup
+    envs:
+      - env/mongo-sessions.env
+
+  - name: cloudinary
+    namespace: ethernity-setup
+    envs:
+      - env/cloudinary.env
+
+  - name: google
+    namespace: ethernity-setup
+    envs:
+      - env/google.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
+    namespace: ethernity-authentication
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+  
+  - name: config
+    namespace: ethernity-authentication
+    envs:
+      - env/config.env
+  
+  - name: mongo-main
+    namespace: ethernity-authentication
+    envs:
+      - env/mongo-main.env
+  
+  - name: mongo-sessions
+    namespace: ethernity-authentication
+    envs:
+      - env/mongo-sessions.env
+  
+  - name: server-nestjs
+    namespace: ethernity-authentication
+    envs:
+      - env/server-nestjs.env
+  
+  - name: server-metrics
+    namespace: ethernity-authentication
+    envs:
+      - env/server-metrics.env
+  
+  - name: jwt
+    namespace: ethernity-authentication
+    envs:
+      - env/jwt.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
+    namespace: ethernity-user
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+
+  - name: storage-service-account
+    namespace: ethernity-user
+    files:
+      - files/storage-service-account-key.json
+  
+  - name: config
+    namespace: ethernity-user
+    envs:
+      - env/config.env
+  
+  - name: mongo-main
+    namespace: ethernity-user
+    envs:
+      - env/mongo-main.env
+  
+  - name: server-nestjs
+    namespace: ethernity-user
+    envs:
+      - env/server-nestjs.env
+  
+  - name: server-metrics
+    namespace: ethernity-user
+    envs:
+      - env/server-metrics.env
+  
+  - name: cloudinary
+    namespace: ethernity-user
+    envs:
+      - env/cloudinary.env
+
+  - name: google
+    namespace: ethernity-user
+    envs:
+      - env/google.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
+    namespace: ethernity-web
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+  
+  - name: storage-service-account
+    namespace: ethernity-web
+    files:
+      - files/storage-service-account-key.json
+  
+  - name: config
+    namespace: ethernity-web
+    envs:
+      - env/config.env
+  
+  - name: google
+    namespace: ethernity-web
+    envs:
+      - env/google.env
+  
+  - name: server-nestjs
+    namespace: ethernity-web
+    envs:
+      - env/server-nestjs.env
+  
+  - name: jwt
+    namespace: ethernity-web
+    envs:
+      - env/jwt.env
