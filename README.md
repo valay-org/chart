@@ -1,7 +1,6 @@
 # chart
 
-
-```
+```shell
 kubectl config get-contexts
 for cxt in $(kubectl config get-contexts --no-headers | awk '{print "contexts."$2}' | grep -E --invert-match "docker-"); do kubectl config unset $cxt; done
 kubectl config --kubeconfig=config-demo view --minify
@@ -33,8 +32,7 @@ alias istioctl=./istio-1.10.2/bin/istioctl
 istioctl profile dump default > ./default.yaml
 
 ```
-
-```
+```shell
 openssl genrsa -out rsa-private.pem 4096
 openssl genrsa -out rsa-private.pem 16384
 openssl rsa -in rsa-private.pem -out rsa-public.pem -outform PEM -pubout
@@ -52,33 +50,57 @@ mongodump -h database-host:27017 -d database-name -u user-name -p password -o fo
 mongorestore -h database-host:27017 -d database-name -u user-name -p password folder-name/database-name --authenticationDatabase admin --tls
 
 ```
-
-```
+#### nestjs
+```shell
 npm ls -g --depth=0
 
 nest new server --skip-git --package-manager npm
 nest generate resource resource-name
 nest generate provider folder/MongoMain.provider
-
-tsconfig.json
-    "target": "es2020"
-    "esModuleInterop": true
-nest-cli.json
-"compilerOptions": {
-    "plugins": [
-        {
-            "name": "@nestjs/swagger",
-            "options": {
-                "introspectComments": true,
-                "controllerKeyOfComment": "summary"
-            }
-        }
-    ]
+```
+```json5
+//tsconfig.json
+{
+  "target": "es2020",
+  "esModuleInterop": true
 }
-
 ```
-
+```json5
+//nest-cli.json
+{
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@nestjs/swagger",
+        "options": {
+          "introspectComments": true,
+          "controllerKeyOfComment": "summary"
+        }
+      },
+      {
+        "name": "@nestjs/graphql",
+        "options": {
+          "typeFileNameSuffix": [
+            ".dto.ts",
+            ".entity.ts"
+          ],
+          "introspectComments": true
+        }
+      }
+    ]
+  }
+}
 ```
+```text
+apollo graphql settings
+
+"request.credentials": "include"
+
+altair graphql settings
+
+enable: Send requests with credentials (cookies)
+```
+```shell
 
 helm create ethernity
 

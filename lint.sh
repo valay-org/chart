@@ -1,1 +1,1 @@
-helm lint charts/ethernity --with-subcharts
+helm lint charts/valay --with-subcharts

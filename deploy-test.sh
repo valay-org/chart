@@ -1,7 +1,5 @@
 set -e
 
-(cd ./charts/ethernity/istio && ./istio-init-test.sh)
-
-export SKAFFOLD_DEFAULT_REPO=docker.io/ethernitymobile
+export SKAFFOLD_DEFAULT_REPO=docker.io/valayorg
 
 skaffold deploy -p test --skip-render

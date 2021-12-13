@@ -1,7 +1,7 @@
 apiVersion: skaffold/v2beta25
 kind: Config
 metadata:
-  name: ethernity
+  name: valay
 profiles:
   - name: set-trigger-values
     patches:
@@ -15,18 +15,18 @@ profiles:
     patches:
       - op: replace
         path: /deploy/kubeContext
-        value: gke_ethy-mobile_us-central1-a_ethernity
+        value: gke_valay-prod_us-central1-a_valay
       - op: replace
         path: /deploy/helm/flags
         value:
-          install: [ "--post-renderer=./charts/ethernity/kustomizations/production/us-central/render.sh" ]
-          upgrade: [ "--post-renderer=./charts/ethernity/kustomizations/production/us-central/render.sh" ]
+          install: [ "--post-renderer=./charts/valay/kustomizations/production/us-central/render.sh" ]
+          upgrade: [ "--post-renderer=./charts/valay/kustomizations/production/us-central/render.sh" ]
       - op: replace
         path: /deploy/helm/releases/0/name
         value: stable
       - op: add
         path: /deploy/helm/releases/0/valuesFiles/-
-        value: charts/ethernity/values-production.yaml
+        value: charts/valay/values-production.yaml
       - op: replace
         path: /build/local/push
         value: true
@@ -34,18 +34,18 @@ profiles:
     patches:
       - op: replace
         path: /deploy/kubeContext
-        value: gke_ethy-mobile-test_us-east1-b_ethernity
+        value: gke_valay-176920_us-east1-b_valay
       - op: replace
         path: /deploy/helm/flags
         value:
-          install: [ "--post-renderer=./charts/ethernity/kustomizations/test/us-east/render.sh" ]
-          upgrade: [ "--post-renderer=./charts/ethernity/kustomizations/test/us-east/render.sh" ]
+          install: [ "--post-renderer=./charts/valay/kustomizations/test/us-east/render.sh" ]
+          upgrade: [ "--post-renderer=./charts/valay/kustomizations/test/us-east/render.sh" ]
       - op: replace
         path: /deploy/helm/releases/0/name
         value: beta
       - op: add
         path: /deploy/helm/releases/0/valuesFiles/-
-        value: charts/ethernity/values-test.yaml
+        value: charts/valay/values-test.yaml
       - op: replace
         path: /build/local/push
         value: true
@@ -54,98 +54,6 @@ profiles:
       - op: replace
         path: /deploy/kubeContext
         value: minikube
-  - name: vagrant
-    patches:
-      - op: replace
-        path: /deploy/kubeContext
-        value: kubernetes-admin@kubernetes
-      - op: add
-        path: /deploy/helm/releases/0/valuesFiles/-
-        value: charts/ethernity/values-dev-vagrant.yaml
-      - op: replace
-        path: /build/local/push
-        value: true
-  - name: vagrant-kaniko
-    patches:
-      - op: replace
-        path: /deploy/kubeContext
-        value: kubernetes-admin@kubernetes
-      - op: add
-        path: /deploy/helm/releases/0/valuesFiles/-
-        value: charts/ethernity/values-dev-vagrant.yaml
-      - op: remove
-        path: /build/local
-      - op: add
-        path: /build/cluster
-        value:
-          concurrency: 0
-          timeout: 3000s
-          pullSecretPath: ./charts/ethernity/kustomizations/dev/app/files/.dockerconfigjson
-          dockerConfig:
-            path: ./charts/ethernity/kustomizations/dev/app/files/.dockerconfigjson
-          randomDockerConfigSecret: true
-          randomPullSecret: true
-          tolerations:
-            - key: app/app-reserved
-              operator: Exists
-              effect: NoSchedule
-            - key: app/istio-reserved
-              operator: Exists
-              effect: NoSchedule
-      - op: remove
-        path: /build/artifacts/0/docker
-      - op: remove
-        path: /build/artifacts/1/docker
-      - op: remove
-        path: /build/artifacts/2/docker
-      - op: remove
-        path: /build/artifacts/3/docker
-      - op: remove
-        path: /build/artifacts/4/docker
-      - op: remove
-        path: /build/artifacts/5/docker
-      - op: remove
-        path: /build/artifacts/6/docker
-      - op: remove
-        path: /build/artifacts/7/docker
-      - op: remove
-        path: /build/artifacts/8/docker
-      - op: add
-        path: /build/artifacts/0/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/1/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/2/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/3/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/4/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/5/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/6/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/7/kaniko
-        value:
-          cache: {}
-      - op: add
-        path: /build/artifacts/8/kaniko
-        value:
-          cache: {}
   - name: run-delete
     patches:
       - op: add
@@ -155,28 +63,13 @@ profiles:
             delete: true
           image:
             tag: ""
-          "ethernity-admin-web":
+          "valay-authentication":
             image:
               tag: ""
-          "ethernity-authentication":
+          "valay-user":
             image:
               tag: ""
-          "ethernity-inventory":
-            image:
-              tag: ""
-          "ethernity-notification":
-            image:
-              tag: ""
-          "ethernity-payment":
-            image:
-              tag: ""
-          "ethernity-user":
-            image:
-              tag: ""
-          "ethernity-web":
-            image:
-              tag: ""
-          "ethernity-worker":
+          "valay-web":
             image:
               tag: ""
   - name: run-migrations
@@ -188,28 +81,13 @@ profiles:
             migrations: true
           image:
             tag: ""
-          "ethernity-admin-web":
+          "valay-authentication":
             image:
               tag: ""
-          "ethernity-authentication":
+          "valay-user":
             image:
               tag: ""
-          "ethernity-inventory":
-            image:
-              tag: ""
-          "ethernity-notification":
-            image:
-              tag: ""
-          "ethernity-payment":
-            image:
-              tag: ""
-          "ethernity-user":
-            image:
-              tag: ""
-          "ethernity-web":
-            image:
-              tag: ""
-          "ethernity-worker":
+          "valay-web":
             image:
               tag: ""
   - name: remove-tags
@@ -219,28 +97,13 @@ profiles:
         value:
           image:
             tag: ""
-          "ethernity-admin-web":
+          "valay-authentication":
             image:
               tag: ""
-          "ethernity-authentication":
+          "valay-user":
             image:
               tag: ""
-          "ethernity-inventory":
-            image:
-              tag: ""
-          "ethernity-notification":
-            image:
-              tag: ""
-          "ethernity-payment":
-            image:
-              tag: ""
-          "ethernity-user":
-            image:
-              tag: ""
-          "ethernity-web":
-            image:
-              tag: ""
-          "ethernity-worker":
+          "valay-web":
             image:
               tag: ""
   - name: add-artifacts
@@ -249,93 +112,53 @@ profiles:
         path: /deploy/helm/releases/0/artifactOverrides
         value:
           image:
-            repository: mobile-setup
-          "ethernity-admin-web":
+            repository: valay-setup
+          "valay-web":
             image:
-              repository: mobile-admin-web
-          "ethernity-web":
+              repository: valay-web
+          "valay-authentication":
             image:
-              repository: mobile-web
-          "ethernity-authentication":
+              repository: valay-authentication
+          "valay-user":
             image:
-              repository: mobile-authentication
-          "ethernity-inventory":
-            image:
-              repository: mobile-inventory
-          "ethernity-notification":
-            image:
-              repository: mobile-notification
-          "ethernity-payment":
-            image:
-              repository: mobile-payment
-          "ethernity-user":
-            image:
-              repository: mobile-user
-          "ethernity-worker":
-            image:
-              repository: mobile-worker
+              repository: valay-user
 build:
   local:
     push: false
     useBuildkit: true
     concurrency: 0
   artifacts:
-    - image: mobile-admin-web
-      context: ../ethernity/admin-web
+    - image: valay-web
+      context: ../valay/web
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
-    - image: mobile-web
-      context: ../ethernity/web
+    - image: valay-authentication
+      context: ../valay/authentication
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
-    - image: mobile-authentication
-      context: ../ethernity/authentication
+    - image: valay-setup
+      context: ../valay/setup
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
-    - image: mobile-inventory
-      context: ../ethernity/inventory
-      docker:
-        buildArgs:
-          BUILDKIT_INLINE_CACHE: "1"
-    - image: mobile-notification
-      context: ../ethernity/notification
-      docker:
-        buildArgs:
-          BUILDKIT_INLINE_CACHE: "1"
-    - image: mobile-payment
-      context: ../ethernity/payment
-      docker:
-        buildArgs:
-          BUILDKIT_INLINE_CACHE: "1"
-    - image: mobile-setup
-      context: ../ethernity/setup
-      docker:
-        buildArgs:
-          BUILDKIT_INLINE_CACHE: "1"
-      sync:
-        manual:
-          - src: "server/src/scripts/migrations/migration6/*.jpg"
-            dest: "/container-app/server/dist/scripts/migrations/migration6"
-            strip: "server/src/scripts/migrations/migration6/"
-          - src: "server/src/scripts/migrations/migration9/*.jpg"
-            dest: "/container-app/server/dist/scripts/migrations/migration9"
-            strip: "server/src/scripts/migrations/migration9/"
-    - image: mobile-user
-      context: ../ethernity/user
-      docker:
-        buildArgs:
-          BUILDKIT_INLINE_CACHE: "1"
-    - image: mobile-worker
-      context: ../ethernity/worker
+    - image: valay-user
+      context: ../valay/user
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
 test:
-  - image: mobile-worker
-    context: ../ethernity/worker/server
+  - image: valay-web
+    context: ../valay/web/server
+    custom:
+      - command: node_modules/.bin/jest --runInBand --silent
+  - image: valay-authentication
+    context: ../valay/authentication/server
+    custom:
+      - command: node_modules/.bin/jest --runInBand --silent
+  - image: valay-user
+    context: ../valay/user/server
     custom:
       - command: node_modules/.bin/jest --runInBand --silent
 deploy:
@@ -345,38 +168,38 @@ deploy:
     prefix: podAndContainer
   helm:
     flags:
-      install: [ "--post-renderer=./charts/ethernity/kustomizations/dev/render.sh" ]
-      upgrade: [ "--post-renderer=./charts/ethernity/kustomizations/dev/render.sh" ]
+      install: [ "--post-renderer=./charts/valay/kustomizations/dev/render.sh" ]
+      upgrade: [ "--post-renderer=./charts/valay/kustomizations/dev/render.sh" ]
     releases:
       - name: alpha
-        chartPath: charts/ethernity
-        namespace: ethernity
+        chartPath: charts/valay
+        namespace: valay
         valuesFiles:
-          - charts/ethernity/values.yaml
+          - charts/valay/values.yaml
         setValueTemplates: {}
         artifactOverrides: {}
 portForward:
   - resourceType: service
-    resourceName: istio-ingressgateway
-    namespace: istio-system
-    port: 80
+    resourceName: web
+    namespace: valay-web
+    port: 10001
     localPort: 8080
     address: 0.0.0.0
   - resourceType: service
     resourceName: alpha-mongo-main
-    namespace: ethernity
+    namespace: valay
     port: 27017
     localPort: 27017
     address: 0.0.0.0
   - resourceType: service
     resourceName: alpha-mongo-sessions
-    namespace: ethernity
+    namespace: valay
     port: 27017
     localPort: 27018
     address: 0.0.0.0
   - resourceType: service
     resourceName: alpha-mongo-migrations
-    namespace: ethernity
+    namespace: valay
     port: 27017
     localPort: 27019
     address: 0.0.0.0
