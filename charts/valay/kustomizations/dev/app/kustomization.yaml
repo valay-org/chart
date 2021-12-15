@@ -13,31 +13,30 @@ patches:
       kind: Job
       name: delete
       namespace: ethernity-setup
-  
+
   - path: migrations-job.yaml
     target:
       kind: Job
       name: migrations
       namespace: ethernity-setup
-  
+
   - path: authentication-deployment.yaml
     target:
       kind: Deployment
       name: authentication
       namespace: ethernity-authentication
-  
+
   - path: user-deployment.yaml
     target:
       kind: Deployment
       name: user
       namespace: ethernity-user
-  
+
   - path: web-deployment.yaml
     target:
       kind: Deployment
       name: web
       namespace: ethernity-web
-  
 
 secretGenerator:
   - name: docker-registry-auth
@@ -45,27 +44,27 @@ secretGenerator:
     files:
       - files/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
-  
+
   - name: storage-service-account
     namespace: ethernity-setup
     files:
       - files/storage-service-account-key.json
-  
+
   - name: config
     namespace: ethernity-setup
     envs:
       - env/config.env
-  
+
   - name: mongo-main
     namespace: ethernity-setup
     envs:
       - env/mongo-main.env
-  
+
   - name: mongo-migrations
     namespace: ethernity-setup
     envs:
       - env/mongo-migrations.env
-  
+
   - name: mongo-sessions
     namespace: ethernity-setup
     envs:
@@ -86,32 +85,32 @@ secretGenerator:
     files:
       - files/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
-  
+
   - name: config
     namespace: ethernity-authentication
     envs:
       - env/config.env
-  
+
   - name: mongo-main
     namespace: ethernity-authentication
     envs:
       - env/mongo-main.env
-  
+
   - name: mongo-sessions
     namespace: ethernity-authentication
     envs:
       - env/mongo-sessions.env
-  
+
   - name: server-http
     namespace: ethernity-authentication
     envs:
       - env/server-http.env
-  
+
   - name: server-grpc
     namespace: ethernity-authentication
     envs:
       - env/server-grpc.env
-  
+
   - name: jwt
     namespace: ethernity-authentication
     envs:
@@ -127,27 +126,27 @@ secretGenerator:
     namespace: ethernity-user
     files:
       - files/storage-service-account-key.json
-  
+
   - name: config
     namespace: ethernity-user
     envs:
       - env/config.env
-  
+
   - name: mongo-main
     namespace: ethernity-user
     envs:
       - env/mongo-main.env
-  
+
   - name: server-http
     namespace: ethernity-user
     envs:
       - env/server-http.env
-  
+
   - name: server-grpc
     namespace: ethernity-user
     envs:
       - env/server-grpc.env
-  
+
   - name: cloudinary
     namespace: ethernity-user
     envs:
@@ -163,22 +162,22 @@ secretGenerator:
     files:
       - files/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
-  
+
   - name: storage-service-account
     namespace: ethernity-web
     files:
       - files/storage-service-account-key.json
-  
+
   - name: config
     namespace: ethernity-web
     envs:
       - env/config.env
-  
+
   - name: google
     namespace: ethernity-web
     envs:
       - env/google.env
-  
+
   - name: server-http
     namespace: ethernity-web
     envs:
@@ -188,7 +187,7 @@ secretGenerator:
     namespace: ethernity-web
     envs:
       - env/server-grpc.env
-  
+
   - name: jwt
     namespace: ethernity-web
     envs:

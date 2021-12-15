@@ -57,6 +57,9 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          env:
+            - name: GETCONFIG_ROOT
+              value: "kustomize to run delete job"
           envFrom:
             - secretRef:
                 name: config
