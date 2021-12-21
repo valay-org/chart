@@ -1,5 +1,6 @@
 image:
   repository: docker.io/valayorg/setup
+  pullPolicy: Always
   tag: test
 nodeSelector:
   "cloud.google.com/gke-nodepool": app
@@ -20,6 +21,7 @@ mongo-sessions:
 valay-authentication:
   image:
     repository: docker.io/valayorg/authentication
+    pullPolicy: Always
     tag: test
   nodeSelector:
     "cloud.google.com/gke-nodepool": app
@@ -40,6 +42,7 @@ valay-authentication:
 valay-user:
   image:
     repository: docker.io/valayorg/user
+    pullPolicy: Always
     tag: test
   nodeSelector:
     "cloud.google.com/gke-nodepool": app
@@ -60,6 +63,7 @@ valay-user:
 valay-web:
   image:
     repository: docker.io/valayorg/web
+    pullPolicy: Always
     tag: test
   nodeSelector:
     "cloud.google.com/gke-nodepool": app
