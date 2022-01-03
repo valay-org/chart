@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="intall web" type="js.build_tools.npm" activateToolWindowBeforeRun="false">
+    <package-json value="$PROJECT_DIR$/../valay/web/server/package.json" />
+    <command value="install" />
+    <node-interpreter value="project" />
+    <envs />
+    <method v="2">
+      <option name="RunConfigurationTask" enabled="true" run_configuration_name="update deps web" run_configuration_type="ShConfigurationType" />
+    </method>
+  </configuration>
+</component>
