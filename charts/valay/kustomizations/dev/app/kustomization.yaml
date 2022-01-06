@@ -12,183 +12,183 @@ patches:
     target:
       kind: Job
       name: delete
-      namespace: ethernity-setup
+      namespace: valay-setup
 
   - path: migrations-job.yaml
     target:
       kind: Job
       name: migrations
-      namespace: ethernity-setup
+      namespace: valay-setup
 
   - path: authentication-deployment.yaml
     target:
       kind: Deployment
       name: authentication
-      namespace: ethernity-authentication
+      namespace: valay-authentication
 
   - path: user-deployment.yaml
     target:
       kind: Deployment
       name: user
-      namespace: ethernity-user
+      namespace: valay-user
 
   - path: web-deployment.yaml
     target:
       kind: Deployment
       name: web
-      namespace: ethernity-web
+      namespace: valay-web
 
 secretGenerator:
   - name: docker-registry-auth
-    namespace: ethernity-setup
+    namespace: valay-setup
     files:
       - files/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
 
   - name: storage-service-account
-    namespace: ethernity-setup
+    namespace: valay-setup
     files:
       - files/storage-service-account-key.json
 
   - name: config
-    namespace: ethernity-setup
+    namespace: valay-setup
     envs:
       - env/config.env
 
   - name: mongo-main
-    namespace: ethernity-setup
+    namespace: valay-setup
     envs:
       - env/mongo-main.env
 
   - name: mongo-migrations
-    namespace: ethernity-setup
+    namespace: valay-setup
     envs:
       - env/mongo-migrations.env
 
   - name: mongo-sessions
-    namespace: ethernity-setup
+    namespace: valay-setup
     envs:
       - env/mongo-sessions.env
 
   - name: cloudinary
-    namespace: ethernity-setup
+    namespace: valay-setup
     envs:
       - env/cloudinary.env
 
   - name: google
-    namespace: ethernity-setup
+    namespace: valay-setup
     envs:
       - env/google.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
-    namespace: ethernity-authentication
+    namespace: valay-authentication
     files:
       - files/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
 
   - name: config
-    namespace: ethernity-authentication
+    namespace: valay-authentication
     envs:
       - env/config.env
 
   - name: mongo-main
-    namespace: ethernity-authentication
+    namespace: valay-authentication
     envs:
       - env/mongo-main.env
 
   - name: mongo-sessions
-    namespace: ethernity-authentication
+    namespace: valay-authentication
     envs:
       - env/mongo-sessions.env
 
   - name: server-http
-    namespace: ethernity-authentication
+    namespace: valay-authentication
     envs:
       - env/server-http.env
 
   - name: server-grpc
-    namespace: ethernity-authentication
+    namespace: valay-authentication
     envs:
       - env/server-grpc.env
 
   - name: jwt
-    namespace: ethernity-authentication
+    namespace: valay-authentication
     envs:
       - env/jwt.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
-    namespace: ethernity-user
+    namespace: valay-user
     files:
       - files/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
 
   - name: storage-service-account
-    namespace: ethernity-user
+    namespace: valay-user
     files:
       - files/storage-service-account-key.json
 
   - name: config
-    namespace: ethernity-user
+    namespace: valay-user
     envs:
       - env/config.env
 
   - name: mongo-main
-    namespace: ethernity-user
+    namespace: valay-user
     envs:
       - env/mongo-main.env
 
   - name: server-http
-    namespace: ethernity-user
+    namespace: valay-user
     envs:
       - env/server-http.env
 
   - name: server-grpc
-    namespace: ethernity-user
+    namespace: valay-user
     envs:
       - env/server-grpc.env
 
   - name: cloudinary
-    namespace: ethernity-user
+    namespace: valay-user
     envs:
       - env/cloudinary.env
 
   - name: google
-    namespace: ethernity-user
+    namespace: valay-user
     envs:
       - env/google.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
-    namespace: ethernity-web
+    namespace: valay-web
     files:
       - files/.dockerconfigjson
     type: kubernetes.io/dockerconfigjson
 
   - name: storage-service-account
-    namespace: ethernity-web
+    namespace: valay-web
     files:
       - files/storage-service-account-key.json
 
   - name: config
-    namespace: ethernity-web
+    namespace: valay-web
     envs:
       - env/config.env
 
   - name: google
-    namespace: ethernity-web
+    namespace: valay-web
     envs:
       - env/google.env
 
   - name: server-http
-    namespace: ethernity-web
+    namespace: valay-web
     envs:
       - env/server-http.env
 
   - name: server-grpc
-    namespace: ethernity-web
+    namespace: valay-web
     envs:
       - env/server-grpc.env
 
   - name: jwt
-    namespace: ethernity-web
+    namespace: valay-web
     envs:
       - env/jwt.env

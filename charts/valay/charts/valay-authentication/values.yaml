@@ -17,7 +17,7 @@ serviceAccount:
     helm.sh/hook-weight: "-3"
   name: ""
 
-podAnnotations:{}
+podAnnotations: {}
 
 podSecurityContext: {}
 

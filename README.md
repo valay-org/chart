@@ -102,10 +102,10 @@ enable: Send requests with credentials (cookies)
 ```
 ```shell
 
-helm create ethernity
+helm create chart-name
 
 helm repo list
-helm repo remove ethernity-repo
+helm repo remove repository-name
 
 
 ```

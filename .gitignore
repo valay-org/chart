@@ -23,7 +23,7 @@
 .vscode/
 
 *.editorconfig
-charts/ethernity/istio/istio-*/
+charts/valay/istio/istio-*/
 **/all.yaml
 **/*.env
 **/.dockerconfigjson
