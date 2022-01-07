@@ -58,13 +58,13 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           livenessProbe:
             exec:
-              command: [ "sh", "-c", "reply=$(curl -s -o /dev/null -w %{http_code} 127.0.0.1:{{ .Values.service.port }}/api/health/liveness); if [ \"$reply\" -lt 200 -o \"$reply\" -ge 400 ]; then exit 1; fi; grpc_health_probe -addr=:{{ .Values.serviceGrpc.port }}" ]
+              command: [ "grpc_health_probe", "-addr=:{{ .Values.serviceGrpc.port }}" ]
           readinessProbe:
             exec:
-              command: [ "sh", "-c", "reply=$(curl -s -o /dev/null -w %{http_code} 127.0.0.1:{{ .Values.service.port }}/api/health/readiness); if [ \"$reply\" -lt 200 -o \"$reply\" -ge 400 ]; then exit 1; fi; grpc_health_probe -addr=:{{ .Values.serviceGrpc.port }}" ]
+              command: [ "grpc_health_probe", "-addr=:{{ .Values.serviceGrpc.port }}" ]
           startupProbe:
             exec:
-              command: [ "sh", "-c", "reply=$(curl -s -o /dev/null -w %{http_code} 127.0.0.1:{{ .Values.service.port }}/api/health/startup); if [ \"$reply\" -lt 200 -o \"$reply\" -ge 400 ]; then exit 1; fi; grpc_health_probe -addr=:{{ .Values.serviceGrpc.port }}" ]
+              command: [ "grpc_health_probe", "-addr=:{{ .Values.serviceGrpc.port }}" ]
           envFrom:
             - secretRef:
                 name: config
