@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="intall authentication" type="js.build_tools.npm" activateToolWindowBeforeRun="false">
+  <configuration default="false" name="install authentication" type="js.build_tools.npm" activateToolWindowBeforeRun="false">
     <package-json value="$PROJECT_DIR$/../valay/authentication/server/package.json" />
     <command value="install" />
     <node-interpreter value="project" />
