@@ -18,17 +18,13 @@
 *~
 # Various IDEs
 .project
-#.idea/
+.idea/
 *.tmproj
 .vscode/
 
 *.editorconfig
-charts/valay/istio/istio-*/
 **/all.yaml
 **/*.env
 **/.dockerconfigjson
 **/*-service-account-key.json
-.idea/*
-.idea/*/
-!.idea/runConfigurations/
 *.vagrant
