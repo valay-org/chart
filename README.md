@@ -20,7 +20,7 @@ docker login -u user -p token
 
 docker run -it centos:7 /bin/bash
 echo 'dockerhubuser:token' | tr -d "\n" | base64 -w 0
-echo dXNlcjp0b2tlbg== | base64 -d
+echo ZG9ja2VyaHVidXNlcjp0b2tlbg== | base64 -d
 
 ngrep -q -W byline port 443
 
