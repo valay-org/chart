@@ -1,0 +1,10 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: web
+  namespace: valay-web
+  annotations:
+    helm.sh/hook: post-install,post-upgrade
+spec:
+  domains:
+    - test.parkvalay.com
