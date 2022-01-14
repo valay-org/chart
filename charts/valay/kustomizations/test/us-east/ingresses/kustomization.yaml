@@ -4,6 +4,4 @@ resources:
   - all.yaml
 
   - web-managedcertificate.yaml
-  - admin-web-managedcertificate.yaml
-  - prometheus-managedcertificate.yaml
   - web-ingress.yaml
