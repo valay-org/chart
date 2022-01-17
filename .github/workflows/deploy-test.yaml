@@ -24,4 +24,5 @@ jobs:
       - run: (cd /bin && sudo curl -Lo kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize/v${APP_KUSTOMIZE_VERSION}/kustomize_v${APP_KUSTOMIZE_VERSION}_linux_amd64.tar.gz && sudo tar -zxf kustomize.tar.gz && sudo chmod +x kustomize)
       - run: (cd /bin && sudo curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/v${APP_SKAFFOLD_VERSION}/skaffold-linux-amd64 && sudo chmod +x skaffold)
       - run: helm repo add bitnami https://charts.bitnami.com/bitnami
+      - run: gcloud container clusters get-credentials valay --zone=us-east1-b
       - run: skaffold deploy -p test --skip-render
