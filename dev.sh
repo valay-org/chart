@@ -11,6 +11,6 @@ fi
 
 kubectl apply -k namespaces --context=${CONTEXT}
 
-skaffold run -p run-delete,add-artifacts${ADDITIONAL_PROFILE} --tail --port-forward=user
+#skaffold run -p run-delete,add-artifacts${ADDITIONAL_PROFILE} --tail --port-forward=user
 skaffold run -p run-migrations,add-artifacts${ADDITIONAL_PROFILE} --tail --port-forward=user
 skaffold dev -p remove-tags,add-artifacts${ADDITIONAL_PROFILE} --cleanup=false
