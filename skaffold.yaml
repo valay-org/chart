@@ -72,6 +72,9 @@ profiles:
           "valay-web":
             image:
               tag: ""
+          "valay-notification":
+            image:
+              tag: ""
   - name: run-migrations
     patches:
       - op: add
@@ -90,6 +93,9 @@ profiles:
           "valay-web":
             image:
               tag: ""
+          "valay-notification":
+            image:
+              tag: ""
   - name: remove-tags
     patches:
       - op: add
@@ -104,6 +110,9 @@ profiles:
             image:
               tag: ""
           "valay-web":
+            image:
+              tag: ""
+          "valay-notification":
             image:
               tag: ""
   - name: add-artifacts
@@ -122,6 +131,9 @@ profiles:
           "valay-user":
             image:
               repository: valay-user
+          "valay-notification":
+            image:
+              repository: valay-notification
 build:
   local:
     push: false
@@ -148,6 +160,11 @@ build:
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
+    - image: valay-notification
+      context: ../valay/notification
+      docker:
+        buildArgs:
+          BUILDKIT_INLINE_CACHE: "1"
 test:
   - image: valay-web
     context: ../valay/web/server
@@ -159,6 +176,10 @@ test:
       - command: node_modules/.bin/jest --runInBand --silent
   - image: valay-user
     context: ../valay/user/server
+    custom:
+      - command: node_modules/.bin/jest --runInBand --silent
+  - image: valay-notification
+    context: ../valay/notification/server
     custom:
       - command: node_modules/.bin/jest --runInBand --silent
 deploy:

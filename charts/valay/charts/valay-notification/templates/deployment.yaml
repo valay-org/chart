@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "valay-notification.name" . }}
+  namespace: {{ include "valay-notification.namespaceName" . }}
+  labels:
+    {{- include "valay-notification.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "valay-notification.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: server
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "valay-notification.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: server
+    spec:
+      shareProcessNamespace: true
+      serviceAccountName: {{ include "valay-notification.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ include "valay-notification.name" . }}
+          image: {{ .Values.image.repository }}{{ if .Values.image.tag }}:{{ end }}{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          workingDir: /container-app/server
+          command: [ "node","dist/main" ]
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: {{ .Values.service.port }}
+            - name: grpc
+              protocol: TCP
+              containerPort: {{ .Values.serviceGrpc.port }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          livenessProbe:
+            exec:
+              command: [ "grpc_health_probe", "-addr=:{{ .Values.serviceGrpc.port }}" ]
+          readinessProbe:
+            exec:
+              command: [ "grpc_health_probe", "-addr=:{{ .Values.serviceGrpc.port }}" ]
+          startupProbe:
+            exec:
+              command: [ "grpc_health_probe", "-addr=:{{ .Values.serviceGrpc.port }}" ]
+          envFrom:
+            - secretRef:
+                name: config
+            - secretRef:
+                name: server-http
+            - secretRef:
+                name: server-grpc
+            - secretRef:
+                name: mongo-main
+            - secretRef:
+                name: sendgrid
+            - secretRef:
+                name: google

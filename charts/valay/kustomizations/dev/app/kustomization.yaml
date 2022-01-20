@@ -38,6 +38,12 @@ patches:
       name: web
       namespace: valay-web
 
+  - path: notification-deployment.yaml
+    target:
+      kind: Deployment
+      name: notification
+      namespace: valay-notification
+
 secretGenerator:
   - name: docker-registry-auth
     namespace: valay-setup
@@ -192,3 +198,39 @@ secretGenerator:
     namespace: valay-web
     envs:
       - env/jwt.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
+    namespace: valay-notification
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+
+  - name: config
+    namespace: valay-notification
+    envs:
+      - env/config.env
+
+  - name: mongo-main
+    namespace: valay-notification
+    envs:
+      - env/mongo-main.env
+
+  - name: google
+    namespace: valay-notification
+    envs:
+      - env/google.env
+
+  - name: server-http
+    namespace: valay-notification
+    envs:
+      - env/server-http.env
+
+  - name: server-grpc
+    namespace: valay-notification
+    envs:
+      - env/server-grpc.env
+
+  - name: sendgrid
+    namespace: valay-notification
+    envs:
+      - env/sendgrid.env

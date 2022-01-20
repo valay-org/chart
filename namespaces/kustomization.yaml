@@ -6,3 +6,4 @@ resources:
   - valay-setup-namespace.yaml
   - valay-user-namespace.yaml
   - valay-web-namespace.yaml
+  - valay-notification-namespace.yaml
