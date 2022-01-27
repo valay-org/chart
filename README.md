@@ -109,3 +109,45 @@ helm repo remove repository-name
 
 
 ```
+
+```json5
+//create mongo atlas search index
+//OrganizationSubRole
+{
+  "mappings": {
+    "dynamic": false,
+    "fields": {
+      "label": [
+        {
+          "type": "autocomplete",
+          "analyzer": "lucene.standard",
+          "tokenization": "nGram",
+          "minGrams": 1,
+          "maxGrams": 50,
+          "foldDiacritics": true
+        }
+      ]
+    }
+  }
+}
+{
+  $search: {
+    compound: {
+      should: [
+        {
+          autocomplete: {
+            query:'hammer',
+            path: 'title',
+          },
+        },
+        {
+          autocomplete: {
+            query:'hammer',
+            path: 'plot',
+          },
+        },
+      ],
+    },
+  },
+}
+```
