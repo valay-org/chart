@@ -60,6 +60,27 @@ valay-notification:
       cpu: 1000m
       memory: 150M
 
+valay-place:
+  image:
+    repository: docker.io/valayorg/place
+    pullPolicy: Always
+    tag: test
+  nodeSelector:
+    "cloud.google.com/gke-nodepool": app
+  tolerations:
+    - key: "app/app-reserved"
+      operator: Exists
+      effect: NoSchedule
+  autoscaling:
+    enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100M
+    limits:
+      cpu: 1000m
+      memory: 150M
+
 valay-user:
   image:
     repository: docker.io/valayorg/user

@@ -26,6 +26,18 @@ patches:
       name: authentication
       namespace: valay-authentication
 
+  - path: notification-deployment.yaml
+    target:
+      kind: Deployment
+      name: notification
+      namespace: valay-notification
+
+  - path: place-deployment.yaml
+    target:
+      kind: Deployment
+      name: place
+      namespace: valay-place
+
   - path: user-deployment.yaml
     target:
       kind: Deployment
@@ -37,12 +49,6 @@ patches:
       kind: Deployment
       name: web
       namespace: valay-web
-
-  - path: notification-deployment.yaml
-    target:
-      kind: Deployment
-      name: notification
-      namespace: valay-notification
 
 secretGenerator:
   - name: docker-registry-auth
@@ -123,6 +129,83 @@ secretGenerator:
       - env/jwt.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
+    namespace: valay-notification
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+
+  - name: config
+    namespace: valay-notification
+    envs:
+      - env/config.env
+
+  - name: mongo-main
+    namespace: valay-notification
+    envs:
+      - env/mongo-main.env
+
+  - name: google
+    namespace: valay-notification
+    envs:
+      - env/google.env
+
+  - name: server-http
+    namespace: valay-notification
+    envs:
+      - env/server-http.env
+
+  - name: server-grpc
+    namespace: valay-notification
+    envs:
+      - env/server-grpc.env
+
+  - name: sendgrid
+    namespace: valay-notification
+    envs:
+      - env/sendgrid.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
+    namespace: valay-place
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+
+  - name: storage-service-account
+    namespace: valay-place
+    files:
+      - files/storage-service-account-key.json
+
+  - name: config
+    namespace: valay-place
+    envs:
+      - env/config.env
+
+  - name: mongo-main
+    namespace: valay-place
+    envs:
+      - env/mongo-main.env
+
+  - name: server-http
+    namespace: valay-place
+    envs:
+      - env/server-http.env
+
+  - name: server-grpc
+    namespace: valay-place
+    envs:
+      - env/server-grpc.env
+
+  - name: cloudinary
+    namespace: valay-place
+    envs:
+      - env/cloudinary.env
+
+  - name: google
+    namespace: valay-place
+    envs:
+      - env/google.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
     namespace: valay-user
     files:
       - files/.dockerconfigjson
@@ -198,39 +281,3 @@ secretGenerator:
     namespace: valay-web
     envs:
       - env/jwt.env
-  #-----------------------------------------------------------------
-  - name: docker-registry-auth
-    namespace: valay-notification
-    files:
-      - files/.dockerconfigjson
-    type: kubernetes.io/dockerconfigjson
-
-  - name: config
-    namespace: valay-notification
-    envs:
-      - env/config.env
-
-  - name: mongo-main
-    namespace: valay-notification
-    envs:
-      - env/mongo-main.env
-
-  - name: google
-    namespace: valay-notification
-    envs:
-      - env/google.env
-
-  - name: server-http
-    namespace: valay-notification
-    envs:
-      - env/server-http.env
-
-  - name: server-grpc
-    namespace: valay-notification
-    envs:
-      - env/server-grpc.env
-
-  - name: sendgrid
-    namespace: valay-notification
-    envs:
-      - env/sendgrid.env
