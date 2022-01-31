@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "valay-place.name" . }}
+  namespace: {{ include "valay-place.namespaceName" . }}
+  labels:
+    {{- include "valay-place.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      name: http
+      protocol: TCP
+      appProtocol: http
+    - port: {{ .Values.serviceGrpc.port }}
+      name: grpc
+      protocol: TCP
+      appProtocol: grpc
+  selector:
+    {{- include "valay-place.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: server

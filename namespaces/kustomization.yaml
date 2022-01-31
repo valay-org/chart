@@ -3,7 +3,8 @@ kind: Kustomization
 resources:
   - valay-namespace.yaml
   - valay-authentication-namespace.yaml
+  - valay-notification-namespace.yaml
+  - valay-place-namespace.yaml
   - valay-setup-namespace.yaml
   - valay-user-namespace.yaml
   - valay-web-namespace.yaml
-  - valay-notification-namespace.yaml

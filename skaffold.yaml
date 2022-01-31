@@ -66,13 +66,16 @@ profiles:
           "valay-authentication":
             image:
               tag: ""
+          "valay-notification":
+            image:
+              tag: ""
+          "valay-place":
+            image:
+              tag: ""
           "valay-user":
             image:
               tag: ""
           "valay-web":
-            image:
-              tag: ""
-          "valay-notification":
             image:
               tag: ""
   - name: run-migrations
@@ -87,13 +90,16 @@ profiles:
           "valay-authentication":
             image:
               tag: ""
+          "valay-notification":
+            image:
+              tag: ""
+          "valay-place":
+            image:
+              tag: ""
           "valay-user":
             image:
               tag: ""
           "valay-web":
-            image:
-              tag: ""
-          "valay-notification":
             image:
               tag: ""
   - name: remove-tags
@@ -106,13 +112,16 @@ profiles:
           "valay-authentication":
             image:
               tag: ""
+          "valay-notification":
+            image:
+              tag: ""
+          "valay-place":
+            image:
+              tag: ""
           "valay-user":
             image:
               tag: ""
           "valay-web":
-            image:
-              tag: ""
-          "valay-notification":
             image:
               tag: ""
   - name: add-artifacts
@@ -122,31 +131,39 @@ profiles:
         value:
           image:
             repository: valay-setup
-          "valay-web":
-            image:
-              repository: valay-web
           "valay-authentication":
             image:
               repository: valay-authentication
-          "valay-user":
-            image:
-              repository: valay-user
           "valay-notification":
             image:
               repository: valay-notification
+          "valay-place":
+            image:
+              repository: valay-place
+          "valay-user":
+            image:
+              repository: valay-user
+          "valay-web":
+            image:
+              repository: valay-web
 build:
   local:
     push: false
     useBuildkit: true
     concurrency: 0
   artifacts:
-    - image: valay-web
-      context: ../valay/web
+    - image: valay-authentication
+      context: ../valay/authentication
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
-    - image: valay-authentication
-      context: ../valay/authentication
+    - image: valay-notification
+      context: ../valay/notification
+      docker:
+        buildArgs:
+          BUILDKIT_INLINE_CACHE: "1"
+    - image: valay-place
+      context: ../valay/place
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
@@ -160,26 +177,30 @@ build:
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
-    - image: valay-notification
-      context: ../valay/notification
+    - image: valay-web
+      context: ../valay/web
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
 test:
-  - image: valay-web
-    context: ../valay/web/server
-    custom:
-      - command: node_modules/.bin/jest --runInBand --silent
   - image: valay-authentication
     context: ../valay/authentication/server
+    custom:
+      - command: node_modules/.bin/jest --runInBand --silent
+  - image: valay-notification
+    context: ../valay/notification/server
+    custom:
+      - command: node_modules/.bin/jest --runInBand --silent
+  - image: valay-place
+    context: ../valay/place/server
     custom:
       - command: node_modules/.bin/jest --runInBand --silent
   - image: valay-user
     context: ../valay/user/server
     custom:
       - command: node_modules/.bin/jest --runInBand --silent
-  - image: valay-notification
-    context: ../valay/notification/server
+  - image: valay-web
+    context: ../valay/web/server
     custom:
       - command: node_modules/.bin/jest --runInBand --silent
 deploy:
