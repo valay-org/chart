@@ -8,5 +8,5 @@ patches:
     target:
       kind: Job
       name: delete
-      namespace: ethernity-setup
+      namespace: valay-setup
 
