@@ -56,7 +56,7 @@ npm ls -g --depth=0
 
 nest new server --skip-git --package-manager npm
 nest generate resource resource-name
-nest generate provider folder/MongoMain.provider
+nest generate provider folder/mongo-main.provider
 ```
 ```json5
 //tsconfig.json
@@ -117,7 +117,27 @@ helm repo remove repository-name
   "mappings": {
     "dynamic": false,
     "fields": {
-      "label": [
+      "name": [
+        {
+          "type": "autocomplete",
+          "analyzer": "lucene.standard",
+          "tokenization": "nGram",
+          "minGrams": 1,
+          "maxGrams": 50,
+          "foldDiacritics": true
+        }
+      ],
+      "formattedAddress": [
+        {
+          "type": "autocomplete",
+          "analyzer": "lucene.standard",
+          "tokenization": "nGram",
+          "minGrams": 1,
+          "maxGrams": 50,
+          "foldDiacritics": true
+        }
+      ],
+      "city": [
         {
           "type": "autocomplete",
           "analyzer": "lucene.standard",
@@ -129,25 +149,5 @@ helm repo remove repository-name
       ]
     }
   }
-}
-{
-  $search: {
-    compound: {
-      should: [
-        {
-          autocomplete: {
-            query:'hammer',
-            path: 'title',
-          },
-        },
-        {
-          autocomplete: {
-            query:'hammer',
-            path: 'plot',
-          },
-        },
-      ],
-    },
-  },
 }
 ```
