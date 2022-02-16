@@ -233,15 +233,3 @@ portForward:
     port: 27017
     localPort: 27017
     address: 0.0.0.0
-  - resourceType: service
-    resourceName: alpha-mongo-sessions
-    namespace: valay
-    port: 27017
-    localPort: 27018
-    address: 0.0.0.0
-  - resourceType: service
-    resourceName: alpha-mongo-migrations
-    namespace: valay
-    port: 27017
-    localPort: 27019
-    address: 0.0.0.0
