@@ -4,6 +4,7 @@ resources:
   - valay-namespace.yaml
   - valay-authentication-namespace.yaml
   - valay-notification-namespace.yaml
+  - valay-payment-namespace.yaml
   - valay-place-namespace.yaml
   - valay-setup-namespace.yaml
   - valay-user-namespace.yaml

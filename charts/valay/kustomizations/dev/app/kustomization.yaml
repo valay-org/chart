@@ -32,6 +32,12 @@ patches:
       name: notification
       namespace: valay-notification
 
+  - path: payment-deployment.yaml
+    target:
+      kind: Deployment
+      name: payment
+      namespace: valay-payment
+
   - path: place-deployment.yaml
     target:
       kind: Deployment
@@ -163,6 +169,37 @@ secretGenerator:
     namespace: valay-notification
     envs:
       - env/sendgrid.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
+    namespace: valay-payment
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+
+  - name: config
+    namespace: valay-payment
+    envs:
+      - env/config.env
+
+  - name: mongo-main
+    namespace: valay-payment
+    envs:
+      - env/mongo-main.env
+
+  - name: server-http
+    namespace: valay-payment
+    envs:
+      - env/server-http.env
+
+  - name: server-grpc
+    namespace: valay-payment
+    envs:
+      - env/server-grpc.env
+
+  - name: stripe
+    namespace: valay-payment
+    envs:
+      - env/stripe.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
     namespace: valay-place

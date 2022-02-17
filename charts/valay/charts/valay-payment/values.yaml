@@ -1,11 +1,13 @@
+replicaCount: 1
+
 image:
-  repository: setup
+  repository: payment
   pullPolicy: IfNotPresent
   tag: latest
 
 imagePullSecrets:
   - name: docker-registry-auth
-nameOverride: setup
+nameOverride: payment
 fullnameOverride: ""
 
 serviceAccount:
@@ -21,29 +23,25 @@ podSecurityContext: {}
 
 securityContext: {}
 
+service:
+  type: ClusterIP
+  port: 10001
+
+serviceGrpc:
+  type: ClusterIP
+  port: 10002
+
 resources: {}
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 99
+  targetMemoryUtilizationPercentage: 99
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
-
-runScripts:
-  delete: false
-  migrations: false
-
-mongo-main:
-  enabled: true
-  image:
-    repository: bitnami/mongodb
-    tag: 4.4.8-debian-10-r0
-  service:
-    port: 27017
-  auth:
-    enabled: false
-  persistence:
-    enabled: false
-  metrics:
-    enabled: false
-

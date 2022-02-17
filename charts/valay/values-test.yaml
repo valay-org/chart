@@ -12,12 +12,6 @@ tolerations:
 mongo-main:
   enabled: false
 
-mongo-migrations:
-  enabled: false
-
-mongo-sessions:
-  enabled: false
-
 valay-authentication:
   image:
     repository: docker.io/valayorg/authentication
@@ -42,6 +36,27 @@ valay-authentication:
 valay-notification:
   image:
     repository: docker.io/valayorg/notification
+    pullPolicy: Always
+    tag: test
+  nodeSelector:
+    "cloud.google.com/gke-nodepool": app
+  tolerations:
+    - key: "app/app-reserved"
+      operator: Exists
+      effect: NoSchedule
+  autoscaling:
+    enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100M
+    limits:
+      cpu: 1000m
+      memory: 150M
+
+valay-payment:
+  image:
+    repository: docker.io/valayorg/payment
     pullPolicy: Always
     tag: test
   nodeSelector:

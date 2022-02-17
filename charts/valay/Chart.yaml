@@ -13,13 +13,3 @@ dependencies:
     version: "10.23.10"
     repository: "https://charts.bitnami.com/bitnami"
     condition: mongo-main.enabled
-  - name: mongodb
-    alias: mongo-migrations
-    version: "10.23.10"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: mongo-migrations.enabled
-  - name: mongodb
-    alias: mongo-sessions
-    version: "10.23.10"
-    repository: "https://charts.bitnami.com/bitnami"
-    condition: mongo-sessions.enabled

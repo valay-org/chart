@@ -69,6 +69,9 @@ profiles:
           "valay-notification":
             image:
               tag: ""
+          "valay-payment":
+            image:
+              tag: ""
           "valay-place":
             image:
               tag: ""
@@ -93,6 +96,9 @@ profiles:
           "valay-notification":
             image:
               tag: ""
+          "valay-payment":
+            image:
+              tag: ""
           "valay-place":
             image:
               tag: ""
@@ -113,6 +119,9 @@ profiles:
             image:
               tag: ""
           "valay-notification":
+            image:
+              tag: ""
+          "valay-payment":
             image:
               tag: ""
           "valay-place":
@@ -137,6 +146,9 @@ profiles:
           "valay-notification":
             image:
               repository: valay-notification
+          "valay-payment":
+            image:
+              repository: valay-payment
           "valay-place":
             image:
               repository: valay-place
@@ -159,6 +171,11 @@ build:
           BUILDKIT_INLINE_CACHE: "1"
     - image: valay-notification
       context: ../valay/notification
+      docker:
+        buildArgs:
+          BUILDKIT_INLINE_CACHE: "1"
+    - image: valay-payment
+      context: ../valay/payment
       docker:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
@@ -189,6 +206,10 @@ test:
       - command: node_modules/.bin/jest --runInBand --silent
   - image: valay-notification
     context: ../valay/notification/server
+    custom:
+      - command: node_modules/.bin/jest --runInBand --silent
+  - image: valay-payment
+    context: ../valay/payment/server
     custom:
       - command: node_modules/.bin/jest --runInBand --silent
   - image: valay-place
