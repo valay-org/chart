@@ -112,10 +112,10 @@ helm repo remove repository-name
 
 ```json5
 //create mongo atlas search index
-//OrganizationSubRole
+//Place
+// index name: autocomplete1
 {
   "mappings": {
-    "dynamic": false,
     "fields": {
       "name": [
         {
