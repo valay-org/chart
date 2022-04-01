@@ -3,7 +3,7 @@ entries:
   valay:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-02-18T18:01:13.433996121Z"
+    created: "2022-04-01T16:09:06.394292434Z"
     dependencies:
     - alias: mongo-main
       condition: mongo-main.enabled
@@ -11,61 +11,13 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: 10.23.10
     description: A Helm chart for Kubernetes
-    digest: 8c380291ca8057ad6b3fed6dd7dcada1578c5824502be8f273526d5ad2a593ae
+    digest: 456c30f8f5ce85e9cfd387ae39330bcd9ff4761fe3ba86d6cbd7b0e1521584e4
     icon: https://www.parkvalay.com/favicon.png
     maintainers:
     - name: moadw
     name: valay
     type: application
     urls:
-    - https://github.com/valay-org/chart/releases/download/valay-0.1.10/valay-0.1.10.tgz
-    version: 0.1.10
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2022-02-18T17:30:01.017425408Z"
-    dependencies:
-    - alias: mongo-main
-      condition: mongo-main.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.23.10
-    description: A Helm chart for Kubernetes
-    digest: acff115ad45aca3d51baa52f728679e02b9516f5d197a0d09b989507b6ada870
-    icon: https://www.parkvalay.com/favicon.png
-    maintainers:
-    - name: moadw
-    name: valay
-    type: application
-    urls:
-    - https://github.com/valay-org/chart/releases/download/valay-0.1.9/valay-0.1.9.tgz
-    version: 0.1.9
-  - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2022-01-20T20:17:17.348093094Z"
-    dependencies:
-    - alias: mongo-main
-      condition: mongo-main.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.23.10
-    - alias: mongo-migrations
-      condition: mongo-migrations.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.23.10
-    - alias: mongo-sessions
-      condition: mongo-sessions.enabled
-      name: mongodb
-      repository: https://charts.bitnami.com/bitnami
-      version: 10.23.10
-    description: A Helm chart for Kubernetes
-    digest: 0dcd0d57cc745dfef37de84cb505d9bf8bf8a5309c63ea1cbbcbef4f07d366de
-    icon: https://www.parkvalay.com/favicon.png
-    maintainers:
-    - name: moadw
-    name: valay
-    type: application
-    urls:
-    - https://github.com/valay-org/chart/releases/download/valay-0.1.8/valay-0.1.8.tgz
-    version: 0.1.8
-generated: "2022-02-18T18:01:13.434009621Z"
+    - https://github.com/valay-org/chart/releases/download/valay-0.1.11/valay-0.1.11.tgz
+    version: 0.1.11
+generated: "2022-04-01T16:09:06.394304634Z"
