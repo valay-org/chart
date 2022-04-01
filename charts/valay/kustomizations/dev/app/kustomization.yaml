@@ -20,6 +20,12 @@ patches:
       name: migrations
       namespace: valay-setup
 
+  - path: admin-web-deployment.yaml
+    target:
+      kind: Deployment
+      name: admin-web
+      namespace: valay-admin-web
+
   - path: authentication-deployment.yaml
     target:
       kind: Deployment
@@ -97,6 +103,22 @@ secretGenerator:
     namespace: valay-setup
     envs:
       - env/google.env
+  #-----------------------------------------------------------------
+  - name: docker-registry-auth
+    namespace: valay-admin-web
+    files:
+      - files/.dockerconfigjson
+    type: kubernetes.io/dockerconfigjson
+
+  - name: config
+    namespace: valay-admin-web
+    envs:
+      - env/config.env
+
+  - name: server-http
+    namespace: valay-admin-web
+    envs:
+      - env/server-http.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
     namespace: valay-authentication

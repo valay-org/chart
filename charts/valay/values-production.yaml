@@ -11,6 +11,25 @@ tolerations:
 mongo-main:
   enabled: false
 
+valay-admin-web:
+  image:
+    repository: docker.io/valayorg/admin-web
+    tag: 1.0.0
+  nodeSelector:
+    "cloud.google.com/gke-nodepool": app
+  tolerations:
+    - key: "app/app-reserved"
+      operator: Exists
+      effect: NoSchedule
+  autoscaling:
+    enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100M
+    limits:
+      cpu: 1000m
+      memory: 500M
 valay-authentication:
   image:
     repository: docker.io/valayorg/authentication
