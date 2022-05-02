@@ -63,6 +63,9 @@ profiles:
             delete: true
           image:
             tag: ""
+          "valay-admin-web":
+            image:
+              tag: ""
           "valay-authentication":
             image:
               tag: ""
@@ -90,6 +93,9 @@ profiles:
             migrations: true
           image:
             tag: ""
+          "valay-admin-web":
+            image:
+              tag: ""
           "valay-authentication":
             image:
               tag: ""
@@ -115,6 +121,9 @@ profiles:
         value:
           image:
             tag: ""
+          "valay-admin-web":
+            image:
+              tag: ""
           "valay-authentication":
             image:
               tag: ""
@@ -140,6 +149,9 @@ profiles:
         value:
           image:
             repository: valay-setup
+          "valay-admin-web":
+            image:
+              repository: valay-admin-web
           "valay-authentication":
             image:
               repository: valay-authentication
@@ -164,6 +176,11 @@ build:
     useBuildkit: true
     concurrency: 0
   artifacts:
+    - image: valay-admin-web
+      context: ../valay/admin-web
+      docker:
+        buildArgs:
+          BUILDKIT_INLINE_CACHE: "1"
     - image: valay-authentication
       context: ../valay/authentication
       docker:
@@ -200,6 +217,10 @@ build:
         buildArgs:
           BUILDKIT_INLINE_CACHE: "1"
 test:
+  - image: valay-admin-web
+    context: ../valay/admin-web/server
+    custom:
+      - command: node_modules/.bin/jest --runInBand --silent
   - image: valay-authentication
     context: ../valay/authentication/server
     custom:
@@ -247,6 +268,12 @@ portForward:
     namespace: valay-web
     port: 10001
     localPort: 8080
+    address: 0.0.0.0
+  - resourceType: service
+    resourceName: admin-web
+    namespace: valay-admin-web
+    port: 10001
+    localPort: 8081
     address: 0.0.0.0
   - resourceType: service
     resourceName: alpha-mongo-main
