@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       containers:
-        - name: web
+        - name: admin-web
           env:
             - name: APP_DEV_LOCAL
               value: "1"

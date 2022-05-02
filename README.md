@@ -55,6 +55,7 @@ mongorestore -h database-host:27017 -d database-name -u user-name -p password fo
 npm ls -g --depth=0
 
 nest new server --skip-git --package-manager npm
+rm -rf server/.prettierrc
 nest generate resource resource-name
 nest generate provider folder/mongo-main.provider
 ```
