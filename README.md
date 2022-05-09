@@ -113,7 +113,7 @@ helm repo remove repository-name
 
 ```json5
 //create mongo atlas search index
-//Place
+// collection: Place
 // index name: autocomplete1
 {
   "mappings": {
