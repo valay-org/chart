@@ -8,7 +8,7 @@ env:
   APP_KUBECTL_VERSION: 1.22.5
   APP_HELM_VERSION: 3.8.0
   APP_KUSTOMIZE_VERSION: 4.5.2
-  APP_SKAFFOLD_VERSION: 1.36.0
+  APP_SKAFFOLD_VERSION: 1.38.0
 jobs:
   deploy:
     runs-on: ubuntu-latest
