@@ -31,6 +31,8 @@ helm rollback release-name revision-number -n namespace
 alias istioctl=./istio-1.10.2/bin/istioctl
 istioctl profile dump default > ./default.yaml
 
+DOCKER_HOST=unix:///home/pc2/.docker/desktop/docker.sock ./dev.sh
+
 ```
 ```shell
 openssl genrsa -out rsa-private.pem 4096
