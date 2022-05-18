@@ -24,6 +24,8 @@ echo ZG9ja2VyaHVidXNlcjp0b2tlbg== | base64 -d
 
 ngrep -q -W byline port 443
 
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
 helm list -n namespace --all
 helm history release-name -n namespace
 helm rollback release-name revision-number -n namespace
@@ -32,6 +34,8 @@ alias istioctl=./istio-1.10.2/bin/istioctl
 istioctl profile dump default > ./default.yaml
 
 DOCKER_HOST=unix:///home/pc2/.docker/desktop/docker.sock ./dev.sh
+docker context ls
+docker context use default
 
 ```
 ```shell

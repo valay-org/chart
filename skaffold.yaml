@@ -220,10 +220,11 @@ test:
     context: ../valay/admin-web/server
     custom:
       - command: node_modules/.bin/jest --runInBand --silent
-  - image: valay-authentication
-    context: ../valay/authentication/server
-    custom:
-      - command: node_modules/.bin/jest --runInBand --silent
+# https://jira.mongodb.org/browse/SERVER-62300
+#  - image: valay-authentication
+#    context: ../valay/authentication/server
+#    custom:
+#      - command: node_modules/.bin/jest --runInBand --silent
   - image: valay-notification
     context: ../valay/notification/server
     custom:

@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="install deps" type="CompoundRunConfigurationType">
+    <toRun name="install authentication" type="js.build_tools.npm" />
+    <toRun name="install notification" type="js.build_tools.npm" />
+    <toRun name="install payment" type="js.build_tools.npm" />
+    <toRun name="install place" type="js.build_tools.npm" />
+    <toRun name="install user" type="js.build_tools.npm" />
+    <toRun name="install web" type="js.build_tools.npm" />
+    <method v="2" />
+  </configuration>
+</component>
