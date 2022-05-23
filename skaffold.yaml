@@ -219,32 +219,32 @@ test:
   - image: valay-admin-web
     context: ../valay/admin-web/server
     custom:
-      - command: node_modules/.bin/jest --silent
+      - command: node_modules/.bin/jest --silent --runInBand
 # https://jira.mongodb.org/browse/SERVER-62300
 #  - image: valay-authentication
 #    context: ../valay/authentication/server
 #    custom:
-#      - command: node_modules/.bin/jest --silent
+#      - command: node_modules/.bin/jest --silent --runInBand
   - image: valay-notification
     context: ../valay/notification/server
     custom:
-      - command: node_modules/.bin/jest --silent
+      - command: node_modules/.bin/jest --silent --runInBand
   - image: valay-payment
     context: ../valay/payment/server
     custom:
-      - command: node_modules/.bin/jest --silent
+      - command: node_modules/.bin/jest --silent --runInBand
   - image: valay-place
     context: ../valay/place/server
     custom:
-      - command: node_modules/.bin/jest --silent
+      - command: node_modules/.bin/jest --silent --runInBand
   - image: valay-user
     context: ../valay/user/server
     custom:
-      - command: node_modules/.bin/jest --silent
+      - command: node_modules/.bin/jest --silent --runInBand
   - image: valay-web
     context: ../valay/web/server
     custom:
-      - command: node_modules/.bin/jest --silent
+      - command: node_modules/.bin/jest --silent --runInBand
 deploy:
   statusCheckDeadlineSeconds: 300
   kubeContext: docker-desktop
