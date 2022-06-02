@@ -35,9 +35,6 @@ runScripts:
 
 mongo-main:
   enabled: true
-  image:
-    repository: bitnami/mongodb
-    tag: 4.4.8-debian-10-r0
   service:
     port: 27017
   auth:

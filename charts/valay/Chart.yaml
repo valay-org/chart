@@ -10,6 +10,6 @@ icon: "https://www.parkvalay.com/favicon.png"
 dependencies:
   - name: mongodb
     alias: mongo-main
-    version: "10.23.10"
+    version: "12.1.15"
     repository: "https://charts.bitnami.com/bitnami"
     condition: mongo-main.enabled
