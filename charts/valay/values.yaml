@@ -30,7 +30,6 @@ tolerations: []
 affinity: {}
 
 runScripts:
-  delete: false
   migrations: false
 
 mongo-main:

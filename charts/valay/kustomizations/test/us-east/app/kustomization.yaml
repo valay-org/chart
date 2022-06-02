@@ -3,10 +3,4 @@ kind: Kustomization
 resources:
   - all.yaml
 
-patches:
-  - path: delete-job.yaml
-    target:
-      kind: Job
-      name: delete
-      namespace: valay-setup
 
