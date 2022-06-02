@@ -54,36 +54,6 @@ profiles:
       - op: replace
         path: /deploy/kubeContext
         value: minikube
-  - name: run-delete
-    patches:
-      - op: add
-        path: /deploy/helm/releases/0/setValueTemplates
-        value:
-          runScripts:
-            delete: true
-          image:
-            tag: ""
-          "valay-admin-web":
-            image:
-              tag: ""
-          "valay-authentication":
-            image:
-              tag: ""
-          "valay-notification":
-            image:
-              tag: ""
-          "valay-payment":
-            image:
-              tag: ""
-          "valay-place":
-            image:
-              tag: ""
-          "valay-user":
-            image:
-              tag: ""
-          "valay-web":
-            image:
-              tag: ""
   - name: run-migrations
     patches:
       - op: add
