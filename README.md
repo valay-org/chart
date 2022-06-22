@@ -37,6 +37,10 @@ DOCKER_HOST=unix:///home/pc2/.docker/desktop/docker.sock ./dev.sh
 docker context ls
 docker context use default
 
+winget show OpenJS.NodeJS --versions
+winget install OpenJS.NodeJS -v 16.12.0
+
+cd /mnt/c/Users/userfolder/projectfolder
 ```
 ```shell
 openssl genrsa -out rsa-private.pem 4096
@@ -62,14 +66,18 @@ npm ls -g --depth=0
 
 nest new server --skip-git --package-manager npm
 rm -rf server/.prettierrc
+npm uninstall -D eslint-config-prettier eslint-plugin-prettier prettier
+
 nest generate resource resource-name
 nest generate provider folder/mongo-main.provider
+
 ```
 ```json5
 //tsconfig.json
 {
   "target": "es2020",
-  "esModuleInterop": true
+  "esModuleInterop": true,
+  "resolveJsonModule": true
 }
 ```
 ```json5
