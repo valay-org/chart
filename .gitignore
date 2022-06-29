@@ -26,5 +26,6 @@
 **/all.yaml
 **/*.env
 **/.dockerconfigjson
+**/*firebase-adminsdk*.json
 **/*-service-account-key.json
 *.vagrant
