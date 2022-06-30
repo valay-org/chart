@@ -43,6 +43,9 @@ spec:
         - name: storage-service-account
           secret:
             secretName: storage-service-account
+        - name: firebase-service-account
+          secret:
+            secretName: firebase-service-account
       containers:
         - name: {{ include "valay-user.name" . }}
           image: {{ .Values.image.repository }}{{ if .Values.image.tag }}:{{ end }}{{ .Values.image.tag }}
@@ -51,6 +54,9 @@ spec:
           command: [ "node","dist/main" ]
           volumeMounts:
             - name: storage-service-account
+              mountPath: "/container-app/secrets"
+              readOnly: true
+            - name: firebase-service-account
               mountPath: "/container-app/secrets"
               readOnly: true
           ports:
