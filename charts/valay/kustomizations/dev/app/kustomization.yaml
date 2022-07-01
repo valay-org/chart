@@ -299,10 +299,10 @@ secretGenerator:
     envs:
       - env/google.env
 
-  - name: firebase-service-account
+  - name: firebase
     namespace: valay-user
-    files:
-      - files/firebase-service-account-key.json
+    envs:
+      - env/firebase.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
     namespace: valay-web
