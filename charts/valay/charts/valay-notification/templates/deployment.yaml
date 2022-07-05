@@ -78,3 +78,7 @@ spec:
                 name: sendgrid
             - secretRef:
                 name: google
+            - secretRef:
+                name: firebase
+            - secretRef:
+                name: twilio

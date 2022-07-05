@@ -185,6 +185,16 @@ secretGenerator:
     namespace: valay-notification
     envs:
       - env/sendgrid.env
+
+  - name: firebase
+    namespace: valay-notification
+    envs:
+      - env/firebase.env
+
+  - name: twilio
+    namespace: valay-notification
+    envs:
+      - env/twilio.env
   #-----------------------------------------------------------------
   - name: docker-registry-auth
     namespace: valay-payment
