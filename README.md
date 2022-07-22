@@ -132,6 +132,9 @@ helm repo remove repository-name
 {
   "mappings": {
     "fields": {
+      "location": {
+        "type": "geo"
+      },
       "name": [
         {
           "type": "autocomplete",
