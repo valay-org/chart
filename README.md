@@ -135,6 +135,12 @@ helm repo remove repository-name
       "location": {
         "type": "geo"
       },
+      "deletedAt": {
+        "type": "date"
+      },
+      "valet": {
+        "type": "boolean"
+      },
       "name": [
         {
           "type": "autocomplete",
