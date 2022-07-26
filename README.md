@@ -118,10 +118,11 @@ enable: Send requests with credentials (cookies)
 ```shell
 
 helm create chart-name
-
 helm repo list
 helm repo remove repository-name
-
+helm dependency list
+helm dependency build
+helm dependency update
 
 ```
 
