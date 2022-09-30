@@ -3,7 +3,7 @@ entries:
   valay:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2022-07-08T17:19:30.817606441Z"
+    created: "2022-09-30T16:57:01.91415062Z"
     dependencies:
     - alias: mongo-main
       condition: mongo-main.enabled
@@ -11,13 +11,13 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: 12.1.15
     description: A Helm chart for Kubernetes
-    digest: 7afab8566266f97ee8871a626ea4703692b8a6637d7f9ba9da1d499b143fe029
+    digest: a73e03707bf9427f3c88a77d747619d809e7ed1aa797e7d9da93b8e30f8dd8d5
     icon: https://www.parkvalay.com/favicon.png
     maintainers:
     - name: moadw
     name: valay
     type: application
     urls:
-    - https://github.com/valay-org/chart/releases/download/valay-0.1.14/valay-0.1.14.tgz
-    version: 0.1.14
-generated: "2022-07-08T17:19:30.817621242Z"
+    - https://github.com/valay-org/chart/releases/download/valay-0.1.15/valay-0.1.15.tgz
+    version: 0.1.15
+generated: "2022-09-30T16:57:01.91416162Z"
