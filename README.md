@@ -12,8 +12,10 @@ kubectl get pods --field-selector 'status.phase=Failed' -o name -n namespace | x
 
 gcloud auth list
 gcloud auth login
+gcloud auth application-default login
 gcloud auth revoke ACCOUNT
 gcloud config set account ACCOUNT
+gcloud auth configure-docker us-east1-docker.pkg.dev
 gcloud compute ssl-certificates list --project=project-name
 gcloud compute ssl-certificates delete certificate-name --project=project-name
 
