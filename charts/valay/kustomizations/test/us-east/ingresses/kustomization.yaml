@@ -4,6 +4,5 @@ resources:
   - all.yaml
 
   - admin-web-managedcertificate.yaml
-  - admin-web-ingress.yaml
   - web-managedcertificate.yaml
   - web-ingress.yaml

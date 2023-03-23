@@ -6,7 +6,7 @@ metadata:
   annotations:
     helm.sh/hook: post-install,post-upgrade
     kubernetes.io/ingress.global-static-ip-name: web
-    networking.gke.io/managed-certificates: "web"
+    networking.gke.io/managed-certificates: "web,admin-web"
 spec:
   rules:
     - host: test.parkvalay.com
@@ -17,5 +17,15 @@ spec:
             backend:
               service:
                 name: web
+                port:
+                  number: 10001
+    - host: admin-test.parkvalay.com
+      http:
+        paths:
+          - path: "/*"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: admin-web
                 port:
                   number: 10001

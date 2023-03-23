@@ -66,5 +66,5 @@ Create the name of the service account to use
 namespace to use
 */}}
 {{- define "valay-admin-web.namespaceName" -}}
-{{ .Release.Namespace }}-{{ include "valay.name" . }}
+{{ .Release.Namespace }}-web
 {{- end }}

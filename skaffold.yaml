@@ -241,7 +241,7 @@ portForward:
     address: 0.0.0.0
   - resourceType: service
     resourceName: admin-web
-    namespace: valay-admin-web
+    namespace: valay-web
     port: 10001
     localPort: 8081
     address: 0.0.0.0
